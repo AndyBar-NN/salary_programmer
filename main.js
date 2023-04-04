@@ -5,7 +5,7 @@ let depositSum = document.querySelector('.deposit');
 
 formControl.addEventListener('click', (e) => {
   e.preventDefault();
-  let betProg = 250;
+  let betProg = 325;
 
   let quantityDays = document.querySelector('.quantity_days').value;
   quantityDays = parseInt(quantityDays);
