@@ -1,0 +1,49 @@
+body {
+  box-sizing: border-box;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #090909;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+h2 {
+  color: green;
+}
+video {
+  position: fixed;
+}
+.btn {
+  cursor: pointer;
+}
+.btn:hover {
+  background: green;
+  color: #fff;
+}
+.box-padding {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #fff;
+  padding: 20px;
+  z-index: 1;
+  background: #000;
+  opacity: 0.9;
+}
+.box-padding input,
+.box-padding button,
+.box-padding .salary {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.box-padding .salary,
+.box-padding input,
+.btn {
+  padding: 10px;
+  font-size: 18px;
+}
+.box-padding .salary {
+  height: 41px;
+  font-size: 36px;
+}
