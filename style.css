@@ -10,7 +10,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 h2 {
-  color: green;
+  color: rgb(87, 57, 197);
 }
 video {
   position: fixed;
@@ -19,7 +19,7 @@ video {
   cursor: pointer;
 }
 .btn:hover {
-  background: green;
+  background: rgb(87, 57, 197);
   color: #fff;
 }
 .box-padding {
