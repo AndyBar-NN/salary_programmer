@@ -22,6 +22,9 @@ video {
   background: rgb(0, 71, 171);
   color: #fff;
 }
+.box-col {
+  display: flex;
+}
 .box-padding {
   display: flex;
   flex-direction: column;
@@ -33,17 +36,41 @@ video {
 }
 .box-padding input,
 .box-padding button,
-.box-padding .salary {
+.box-padding .salary_center {
   margin-bottom: 20px;
   text-align: center;
 }
-.box-padding .salary,
+.box-padding .salary_center,
 .box-padding input,
 .btn {
   padding: 10px;
   font-size: 18px;
 }
-.box-padding .salary {
-  height: 41px;
+.box-padding .salary_center {
   font-size: 36px;
+}
+
+.hidden,
+div.box-padding {
+  display: none;
+}
+
+div.box-padding.show {
+  display: block;
+  opacity: 0;
+  animation: ani 1.5s forwards;
+}
+
+div.hidden.show-hidden {
+  display: flex;
+  flex-direction: column;
+}
+
+.shift {
+  animation: ani 1.5s forwards;
+}
+
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

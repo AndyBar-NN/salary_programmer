@@ -10,15 +10,85 @@
 </head>
 <body>
   <video src="space.mp4" width="100%" height="auto" loop autoplay muted></video>
-  <form class="box-padding">
-    <h2>Калькулятор для расчёта зарплаты</h2>
-    <span>Ставка программиста: <b>325 ₽</b></span>
-    <p>Ставка контент-менеджера: <b class="bet_content-sum">0</b><strong> ₽</strong></p>
-    <input class="quantity_days" type="number" placeholder="Количество рабочих дней" required>
-    <input class="time_prog" type="number" placeholder="Время программиста" required>
-    <button class="form_control btn">Посчитать</button>
-    <span class="salary"></span>
-    <p>Сумма для вклада: <b class="deposit">0</b><strong> ₽</strong></p>
-  </form>
+  <div class="box-col">
+    <form class="box-padding">
+      <h2>Калькулятор для расчёта зарплаты</h2>
+      <span>Ставка программиста: <b>325 ₽</b></span>
+      <p>Ставка контент-менеджера: <b class="bet_content-sum">0</b><strong> ₽</strong></p>
+
+      <div class="hidden">
+        <input class="quantity_money" type="number" placeholder="Сумма за 12 месяцев">
+        <input class="quantity_vacations" type="number" placeholder="Количество отпускных">
+      </div>
+
+      <input class="quantity_days" type="number" placeholder="Количество рабочих дней" required>
+      <input class="time_prog" type="number" placeholder="Время программиста" required>
+
+      <button class="form_control btn">Посчитать</button>
+
+      <p class="salary_center"><span class="salary">0</span><span class="salary_center"> ₽</span></p>
+
+      <p>Сумма для вклада: <b class="deposit">0</b><strong> ₽</strong></p>
+
+      <button class="form_vacation btn">Посчитать отпуск</button>
+      <button class="form_detailed btn">Подробнее</button>
+    </form>
+    <div class="detailed box-padding">
+      <span>Налоги:</span><br>
+      <span>
+        <b>6285</b> - сумма налогов за квартал
+      </span>
+      <br>
+      <span>
+        <b>(6285 / 3) / 2 = 1047,5</b> - половина от налогов за месяц
+      </span>
+      <br>
+      <br>
+
+      <span>Отпускные:</span><br>
+      <span>
+        <b>((<span class="vacation_money">0</span>/ 12) / 20,5) * <span class="vacation_days">0</span> = <span class="vacation">0</span></b> - отпускные за <span class="vacation_days">0</span> день/дней/дня
+      </span>
+      <br>
+      <br>
+
+      <span>
+        ЗП (с контентными работами):
+      </span>
+      <br>
+      <span>
+        <b class="days">0</b> - отработанные дни
+      </span>
+      <br><br>
+
+      <span>
+        <b>30000 / (<span class="days">0</span> * 8) = <span class="bet_content-sum">0</span></b> - ставка контента за 1 час
+      </span>
+      <br>
+
+      <span>
+        <b>(<span class="days">0</span> * 8 - <span class="hours">0</span>) * <span class="bet_content-sum">0</span> = <span class="salary_content">0</span></b> - зп за контентые работы
+      </span>
+
+      <p>
+        <b>
+          <span class="hours">0</span> * 325 = <span class="salary_prog">0</span>
+        </b> - зп за программерские работы
+      </p>
+
+      <p>
+        <b>
+          <span class="salary_prog">0</span> + <span class="salary_content">0</span> = <span class="salary_prog_content">0</span>
+        </b>
+      </p>
+
+      <p>
+        <b>
+          <span class="salary_prog_content">0</span> + <span class="vacation">0</span> + 1047,5 = <span class="salary">0</span>
+        </b>
+      </p>
+
+    </div>
+  </div>
 </body>
 </html>
