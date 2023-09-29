@@ -9,22 +9,69 @@ body {
   color: #fff;
   font-family: 'Roboto', sans-serif;
 }
+
 h2 {
   color: rgb(0, 71, 171);
 }
 video {
   position: fixed;
 }
+
+.block_btn {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.block-quantity_money {
+  position: relative;
+}
+
+.quantity_money {
+  position: relative;
+  width: 94%;
+}
+
+.input_btn {
+  position: absolute;
+  right: 0;
+  width: 92px;
+  height: 46px;
+  background: rgb(171, 0, 0);
+  color: #fff;
+  cursor: pointer;
+}
+
+.mini_btn {
+  width: calc(98% / 2);
+}
+
 .btn {
   cursor: pointer;
 }
+
 .btn:hover {
   background: rgb(0, 71, 171);
   color: #fff;
 }
+
+.mini_btn:hover {
+  background: rgb(80, 0, 146);
+  color: #fff;
+}
+
+button[disabled=""],
+button[disabled=""]:hover {
+  background: #808080;
+  color: #808080;
+  cursor: inherit;
+  opacity: 0.2;
+}
+
 .box-col {
   display: flex;
 }
+
 .box-padding {
   display: flex;
   flex-direction: column;
@@ -34,18 +81,21 @@ video {
   background: #000;
   opacity: 0.9;
 }
+
 .box-padding input,
 .box-padding button,
 .box-padding .salary_center {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .box-padding .salary_center,
 .box-padding input,
 .btn {
   padding: 10px;
   font-size: 18px;
 }
+
 .box-padding .salary_center {
   font-size: 36px;
 }
