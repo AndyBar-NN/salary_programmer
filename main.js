@@ -49,6 +49,17 @@ inputBtn.addEventListener('click', (e) => {
   return false;
 });
 
+function clickBtn(item, show, style) {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    show.classList.toggle(style);
+    form.classList.toggle('shift');
+    return false;
+  });
+}
+
+clickBtn(formVacation, itemHidden, 'show-hidden');
+
 formControl.addEventListener('click', (e) => {
   e.preventDefault();
   let betProg = 325;
@@ -109,27 +120,50 @@ formControl.addEventListener('click', (e) => {
       daysDeclination = "дня";
     } else if(quantityVacation == 1) {
       daysDeclination = "день";
-    }
+    } 
 
     if(quantityMoney.value && quantityVacation) {
-      foreachData(salary, salaryVacationTaxSum); /* зп */
       foreachData(salaryWhole, Math.round(salaryVacationTaxSum)); /* зп округлённое */
-      foreachData(vacation, vacationSum); /* отпускные */
     } else {
-      foreachData(salary, salarySumAndTax); /* зп */
       foreachData(salaryWhole, Math.round(salarySumAndTax)); /* зп округлённое */
     }
-    foreachData(taxSum, taxMoney); /* сумма налога */
-    foreachData(tax, taxSumHalf); /* половина налога */
-    foreachData(salaryProgContent, salarySum); /* сумма зп программера и контент*/
-    foreachData(vacationMoney, quantityMoney.value); /* сумма за 1 год */
-    foreachData(vacationDays, quantityVacation); /* количество отпускных дней */
-    foreachData(hoursProg, timeProg); /* часы */
-    foreachData(salaryProg, salaryProgSum); /* зп программера */
-    foreachData(salaryContent, salaryContentSum); /* зп контента */
-    foreachData(days, quantityDays); /* дни */
-    foreachData(daysText, daysDeclination); /* склонение дней */
-    foreachData(betContentSum, betContent); /* ставка контента */
+
+    // 
+    itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? "<span>Налоги:</span><br><b>"
+      + taxMoney + "</b> - сумма налогов за квартал<br>"
+      + "<b>" + taxMoney + " / 3) / 2 = " + taxSumHalf + "</b> - половина от налогов за месяц<br><br>"
+      + "Отпускные:<br><b>((" + quantityMoney.value + " / 12) / 20,5) * " + quantityVacation + " = " + vacationSum + "</b> - отпускные за " + quantityVacation + " " + daysDeclination 
+      + "<br>"
+      + "<br>"
+      + "ЗП (с контентными работами):<br>"
+      + "<b>" + quantityDays + "</b> - отработанные дни<br><br>"
+      + "<b>30000 / (" + quantityDays + " * 8) = " + betContent + "</b> - ставка контента за 1 час<br>"
+      + "<b>(" + quantityDays + " * 8 - " + timeProg + ") * " + betContent + " = " + salaryContentSum + "</b> - зп за контентые работы"
+      + "<p><b>"
+      + timeProg + " * 325 = " + salaryProgSum
+      + "</b> - зп за программерские работы </p>"
+      + "<p><b>"
+      + salaryProgSum + " + " + salaryContentSum + " = " + salarySum
+      + "</b></p>"
+      + "<p><b>"
+      + salarySum + " + " + vacationSum + " + " + taxSumHalf + " = " + salaryVacationTaxSum
+      + "</b></p>" : "<span>Налоги:</span><br><b>"
+      + taxMoney + "</b> - сумма налогов за квартал<br>"
+      + "<b>" + taxMoney + " / 3) / 2 = " + taxSumHalf + "</b> - половина от налогов за месяц<br><br>"
+      + "ЗП (с контентными работами):<br>"
+      + "<b>" + quantityDays + "</b> - отработанные дни<br><br>"
+      + "<b>30000 / (" + quantityDays + " * 8) = " + betContent + "</b> - ставка контента за 1 час<br>"
+      + "<b>(" + quantityDays + " * 8 - " + timeProg + ") * " + betContent + " = " + salaryContentSum + "</b> - зп за контентые работы"
+      + "<p><b>"
+      + timeProg + " * 325 = " + salaryProgSum
+      + "</b> - зп за программерские работы </p>"
+      + "<p><b>"
+      + salaryProgSum + " + " + salaryContentSum + " = " + salarySum
+      + "</b></p>"
+      + "<p><b>"
+      + salarySum + " + " + taxSumHalf + " = " + salarySumAndTax
+      + "</b></p>";
+    //
 
     arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
     
@@ -158,19 +192,9 @@ formControl.addEventListener('click', (e) => {
       }
     });
 
+    clickBtn(formDetailed, itemDetailed, 'show');
+
   } else {
     alert("Введите корректные данные");
   }
 });
-
-function clickBtn(item, show, style) {
-  item.addEventListener('click', (e) => {
-    e.preventDefault();
-    show.classList.toggle(style);
-    form.classList.toggle('shift');
-    return false;
-  });
-}
-
-clickBtn(formDetailed, itemDetailed, 'show');
-clickBtn(formVacation, itemHidden, 'show-hidden');
