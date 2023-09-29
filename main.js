@@ -45,7 +45,7 @@ inputBtn.addEventListener('click', (e) => {
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   sumSalary = arrSalary.reduce((acc, number) => acc + number);
 
-  quantityMoney.value = sumSalary; 
+  quantityMoney.value = sumSalary;
   return false;
 });
 
@@ -120,7 +120,7 @@ formControl.addEventListener('click', (e) => {
       daysDeclination = "дня";
     } else if(quantityVacation == 1) {
       daysDeclination = "день";
-    } 
+    }
 
     if(quantityMoney.value && quantityVacation) {
       foreachData(salaryWhole, Math.round(salaryVacationTaxSum)); /* зп округлённое */
@@ -128,45 +128,37 @@ formControl.addEventListener('click', (e) => {
       foreachData(salaryWhole, Math.round(salarySumAndTax)); /* зп округлённое */
     }
 
-    // 
-    itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? "<span>Налоги:</span><br><b>"
-      + taxMoney + "</b> - сумма налогов за квартал<br>"
-      + "<b>" + taxMoney + " / 3) / 2 = " + taxSumHalf + "</b> - половина от налогов за месяц<br><br>"
-      + "Отпускные:<br><b>((" + quantityMoney.value + " / 12) / 20,5) * " + quantityVacation + " = " + vacationSum + "</b> - отпускные за " + quantityVacation + " " + daysDeclination 
+    //
+    let itemDetailedTextTax = "<span>Налоги:</span><br><b>"
+    + taxMoney + "</b> - сумма налогов за квартал<br>"
+    + "<b>" + taxMoney + " / 3) / 2 = " + taxSumHalf + "</b> - половина от налогов за месяц<br><br>";
+
+    let itemDetailedTextSalary = "ЗП (с контентными работами):<br>"
+    + "<b>" + quantityDays + "</b> - отработанные дни<br><br>"
+    + "<b>30000 / (" + quantityDays + " * 8) = " + betContent + "</b> - ставка контента за 1 час<br>"
+    + "<b>(" + quantityDays + " * 8 - " + timeProg + ") * " + betContent + " = " + salaryContentSum + "</b> - зп за контентые работы"
+    + "<p><b>"
+    + timeProg + " * 325 = " + salaryProgSum
+    + "</b> - зп за программерские работы </p>"
+    + "<p><b>"
+    + salaryProgSum + " + " + salaryContentSum + " = " + salarySum
+    + "</b></p>"
+    + "<p><b>";
+
+    itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? itemDetailedTextTax
+      + "Отпускные:<br><b>((" + quantityMoney.value + " / 12) / 20,5) * " + quantityVacation + " = " + vacationSum + "</b> - отпускные за " + quantityVacation + " " + daysDeclination
       + "<br>"
       + "<br>"
-      + "ЗП (с контентными работами):<br>"
-      + "<b>" + quantityDays + "</b> - отработанные дни<br><br>"
-      + "<b>30000 / (" + quantityDays + " * 8) = " + betContent + "</b> - ставка контента за 1 час<br>"
-      + "<b>(" + quantityDays + " * 8 - " + timeProg + ") * " + betContent + " = " + salaryContentSum + "</b> - зп за контентые работы"
-      + "<p><b>"
-      + timeProg + " * 325 = " + salaryProgSum
-      + "</b> - зп за программерские работы </p>"
-      + "<p><b>"
-      + salaryProgSum + " + " + salaryContentSum + " = " + salarySum
-      + "</b></p>"
-      + "<p><b>"
+      + itemDetailedTextSalary
       + salarySum + " + " + vacationSum + " + " + taxSumHalf + " = " + salaryVacationTaxSum
-      + "</b></p>" : "<span>Налоги:</span><br><b>"
-      + taxMoney + "</b> - сумма налогов за квартал<br>"
-      + "<b>" + taxMoney + " / 3) / 2 = " + taxSumHalf + "</b> - половина от налогов за месяц<br><br>"
-      + "ЗП (с контентными работами):<br>"
-      + "<b>" + quantityDays + "</b> - отработанные дни<br><br>"
-      + "<b>30000 / (" + quantityDays + " * 8) = " + betContent + "</b> - ставка контента за 1 час<br>"
-      + "<b>(" + quantityDays + " * 8 - " + timeProg + ") * " + betContent + " = " + salaryContentSum + "</b> - зп за контентые работы"
-      + "<p><b>"
-      + timeProg + " * 325 = " + salaryProgSum
-      + "</b> - зп за программерские работы </p>"
-      + "<p><b>"
-      + salaryProgSum + " + " + salaryContentSum + " = " + salarySum
-      + "</b></p>"
-      + "<p><b>"
+      + "</b></p>" : itemDetailedTextTax
+      + itemDetailedTextSalary
       + salarySum + " + " + taxSumHalf + " = " + salarySumAndTax
       + "</b></p>";
     //
 
     arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-    
+
     formSalary.addEventListener('click', (e) => {
       e.preventDefault();
 
@@ -176,17 +168,17 @@ formControl.addEventListener('click', (e) => {
         alert("Вы уже добавили данные в таблицу");
         return false;
       } else {
-     
+
         arrSalary.shift();
-        
+
         if(quantityMoney.value && quantityVacation) {
           arrSalary.push(Math.round(salaryVacationTaxSum));
         } else {
           arrSalary.push(Math.round(salarySumAndTax));
         }
-          
+
         localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
-        
+
         formSalary.disabled = true;
         return false;
       }
