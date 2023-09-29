@@ -16,6 +16,9 @@ let formSalaryDefault = document.querySelector('.form_salary-default');
 let formDetailed = document.querySelector('.form_detailed');
 let inputBtn = document.querySelector('.input_btn');
 
+let tax = document.querySelectorAll('.tax');
+let taxSum = document.querySelectorAll('.tax_sum');
+
 let vacation = document.querySelectorAll('.vacation');
 let vacationMoney = document.querySelectorAll('.vacation_money');
 let vacationDays = document.querySelectorAll('.vacation_days');
@@ -32,13 +35,14 @@ let sumSalary;
 formSalaryDefault.addEventListener('click', (e) => {
   e.preventDefault();
   arrSalary = [34375, 15582, 48200, 32943, 31206, 32529, 43571, 47005, 44933, 49856, 56704, 46797];
-  localStorage.setItem("array", JSON.stringify(arrSalary));
+  localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
   formSalaryDefault.disabled = true;
+  return false;
 });
 
 inputBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  arrSalary = JSON.parse(localStorage.getItem("array"));
+  arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   sumSalary = arrSalary.reduce((acc, number) => acc + number);
 
   quantityMoney.value = sumSalary; 
@@ -58,22 +62,26 @@ formControl.addEventListener('click', (e) => {
   let quantityVacation = document.querySelector('.quantity_vacations').value;
   quantityVacation = parseInt(quantityVacation);
 
+  let taxMoney = document.querySelector('.tax_money').value;
+  taxMoney = parseInt(taxMoney);
+
   let salarySum;
   let salaryVacationTaxSum;
   let salarySumAndTax;
   let deposit;
   let vacationSum;
 
-  if (quantityDays && timeProg) {
+  if (quantityDays && timeProg && taxMoney) {
+    let taxSumHalf = (taxMoney / 3) / 2;
     let betContent = 30000 / (quantityDays * 8);
     let salaryProgSum = betProg * timeProg;
     let salaryContentSum = (quantityDays * 8 - timeProg) * betContent;
 
     if(quantityMoney.value && quantityVacation) {
       vacationSum = ((quantityMoney.value / 12) / 20.5) * quantityVacation;
-      salaryVacationTaxSum = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + vacationSum + 1047.5;
+      salaryVacationTaxSum = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + vacationSum + taxSumHalf;
     } else {
-      salarySumAndTax = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + 1047.5;
+      salarySumAndTax = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + taxSumHalf;
     }
 
     if(quantityMoney.value && quantityVacation) {
@@ -111,6 +119,8 @@ formControl.addEventListener('click', (e) => {
       foreachData(salary, salarySumAndTax); /* зп */
       foreachData(salaryWhole, Math.round(salarySumAndTax)); /* зп округлённое */
     }
+    foreachData(taxSum, taxMoney); /* сумма налога */
+    foreachData(tax, taxSumHalf); /* половина налога */
     foreachData(salaryProgContent, salarySum); /* сумма зп программера и контент*/
     foreachData(vacationMoney, quantityMoney.value); /* сумма за 1 год */
     foreachData(vacationDays, quantityVacation); /* количество отпускных дней */
@@ -121,10 +131,7 @@ formControl.addEventListener('click', (e) => {
     foreachData(daysText, daysDeclination); /* склонение дней */
     foreachData(betContentSum, betContent); /* ставка контента */
 
-    arrSalary = JSON.parse(localStorage.getItem("array"));
-    console.log(arrSalary[11]);
-    console.log(Math.round(salaryVacationTaxSum));
-    console.log(Math.round(salarySumAndTax));
+    arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
     
     formSalary.addEventListener('click', (e) => {
       e.preventDefault();
@@ -144,7 +151,7 @@ formControl.addEventListener('click', (e) => {
           arrSalary.push(Math.round(salarySumAndTax));
         }
           
-        localStorage.setItem("array", JSON.stringify(arrSalary));
+        localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
         
         formSalary.disabled = true;
         return false;

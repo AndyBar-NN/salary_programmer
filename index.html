@@ -23,6 +23,7 @@
         <input class="quantity_vacations" type="number" placeholder="Количество отпускных">
       </div>
 
+      <input class="tax_money" type="number" placeholder="Налоги" required>
       <input class="quantity_days" type="number" placeholder="Количество рабочих дней" required>
       <input class="time_prog" type="number" placeholder="Время программиста" required>
 
@@ -44,11 +45,11 @@
     <div class="detailed box-padding">
       <span>Налоги:</span><br>
       <span>
-        <b>6285</b> - сумма налогов за квартал
+        <b><span class="tax_sum">0</span></b> - сумма налогов за квартал
       </span>
       <br>
       <span>
-        <b>(6285 / 3) / 2 = 1047,5</b> - половина от налогов за месяц
+        <b>(<span class="tax_sum">0</span> / 3) / 2 = <span class="tax">0</span></b> - половина от налогов за месяц
       </span>
       <br>
       <br>
@@ -93,7 +94,7 @@
 
       <p>
         <b>
-          <span class="salary_prog_content">0</span> + <span class="vacation">0</span> + 1047,5 = <span class="salary">0</span>
+          <span class="salary_prog_content">0</span> + <span class="vacation">0</span> + <span class="tax">0</span> = <span class="salary">0</span>
         </b>
       </p>
 
