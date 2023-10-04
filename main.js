@@ -20,6 +20,7 @@ let tax = document.querySelectorAll('.tax');
 let taxSum = document.querySelectorAll('.tax_sum');
 
 let vacation = document.querySelectorAll('.vacation');
+let vacationNum = document.querySelector('.num_vacations').innerHTML;
 let vacationMoney = document.querySelectorAll('.vacation_money');
 let vacationDays = document.querySelectorAll('.vacation_days');
 
@@ -58,20 +59,26 @@ function clickBtn(item, show, style) {
   });
 }
 
+console.log(vacationNum);
+
+let quantityVacation = document.querySelector('.quantity_vacations').value;
+quantityVacation = parseInt(quantityVacation);
+
+vacationNum.innerHTML = vacationNum - quantityVacation
+
+if(vacationNum == '0') formVacation.disabled = true;
+
 clickBtn(formVacation, itemHidden, 'show-hidden');
 
 formControl.addEventListener('click', (e) => {
   e.preventDefault();
   let betProg = 325;
-
+  
   let quantityDays = document.querySelector('.quantity_days').value;
   quantityDays = parseInt(quantityDays);
 
   let timeProg = document.querySelector('.time_prog').value;
   timeProg = parseInt(timeProg);
-
-  let quantityVacation = document.querySelector('.quantity_vacations').value;
-  quantityVacation = parseInt(quantityVacation);
 
   let taxMoney = document.querySelector('.tax_money').value;
   taxMoney = parseInt(taxMoney);
@@ -145,7 +152,7 @@ formControl.addEventListener('click', (e) => {
     + "</b></p>"
     + "<p><b>";
 
-    itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? itemDetailedTextTax
+    itemDetailed.innerHTML += quantityMoney.value && quantityVacation ? itemDetailedTextTax
       + "Отпускные:<br><b>((" + quantityMoney.value + " / 12) / 20,5) * " + quantityVacation + " = " + vacationSum + "</b> - отпускные за " + quantityVacation + " " + daysDeclination
       + "<br>"
       + "<br>"

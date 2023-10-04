@@ -32,6 +32,10 @@ video {
   width: 94%;
 }
 
+.form_salary-default {
+  width: 100%;
+}
+
 .input_btn {
   position: absolute;
   right: 0;
@@ -85,7 +89,7 @@ button[disabled=""]:hover {
 .box-padding input,
 .box-padding button,
 .box-padding .salary_center {
-  margin-bottom: 20px;
+  margin-top: 20px;
   text-align: center;
 }
 
