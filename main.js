@@ -20,7 +20,6 @@ let tax = document.querySelectorAll('.tax');
 let taxSum = document.querySelectorAll('.tax_sum');
 
 let vacation = document.querySelectorAll('.vacation');
-let vacationNum = document.querySelector('.num_vacations').innerHTML;
 let vacationMoney = document.querySelectorAll('.vacation_money');
 let vacationDays = document.querySelectorAll('.vacation_days');
 
@@ -59,21 +58,28 @@ function clickBtn(item, show, style) {
   });
 }
 
-console.log(vacationNum);
-
+let quantityVacationItem = document.querySelector('.quantity_vacations');
 let quantityVacation = document.querySelector('.quantity_vacations').value;
 quantityVacation = parseInt(quantityVacation);
 
-vacationNum.innerHTML = vacationNum - quantityVacation
+let vacationNum = document.querySelector('.num_vacations');
 
-if(vacationNum == '0') formVacation.disabled = true;
+quantityVacationItem.addEventListener('input', function() {
+  let quantityVacationElem = parseInt(this.value);
+  vacationNum.value = 28 - quantityVacationElem;
+})
+
+quantityVacation = quantityVacationItem.value;
+console.log(vacationNum.value);
+
+if(vacationNum == 0) formVacation.disabled = true;
 
 clickBtn(formVacation, itemHidden, 'show-hidden');
 
 formControl.addEventListener('click', (e) => {
   e.preventDefault();
   let betProg = 325;
-  
+
   let quantityDays = document.querySelector('.quantity_days').value;
   quantityDays = parseInt(quantityDays);
 
@@ -195,5 +201,6 @@ formControl.addEventListener('click', (e) => {
 
   } else {
     alert("Введите корректные данные");
+    return false;
   }
 });

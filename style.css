@@ -104,6 +104,20 @@ button[disabled=""]:hover {
   font-size: 36px;
 }
 
+input.num_vacations {
+  all: unset;
+}
+
+input[type=number].num_vacations::-webkit-outer-spin-button,
+input[type=number].num_vacations::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number].num_vacations {
+    -moz-appearance:textfield;
+}
+
 .hidden,
 div.box-padding {
   display: none;
