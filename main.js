@@ -14,6 +14,7 @@ let formVacation = document.querySelector('.form_vacation');
 let formSalary = document.querySelector('.form_salary');
 let formSalaryDefault = document.querySelector('.form_salary-default');
 let formDetailed = document.querySelector('.form_detailed');
+let inputBtnVacation = document.querySelector('.input_btn-vacation');
 let inputBtn = document.querySelector('.input_btn');
 
 let tax = document.querySelectorAll('.tax');
@@ -29,18 +30,29 @@ let salaryProg = document.querySelectorAll('.salary_prog');
 let salaryContent = document.querySelectorAll('.salary_content');
 let salaryProgContent = document.querySelectorAll('.salary_prog_content');
 
+let quantityVacation = document.querySelector('.quantity_vacations').value;
+quantityVacation = parseInt(quantityVacation);
+let quantityVacationItem = document.querySelector('.quantity_vacations');
+let vacationNum = document.querySelector('.num_vacations');
+
 let arrSalary = [];
 let sumSalary;
+let vacationCount;
+
+let date = new Date();
+let year = date.getFullYear();
+let month = date.getMonth();
+let arrDate = [month + 1, year].join('.');
 
 formSalaryDefault.addEventListener('click', (e) => {
   e.preventDefault();
-  arrSalary = [34375, 15582, 48200, 32943, 31206, 32529, 43571, 47005, 44933, 49856, 56704, 46797];
+  arrSalary = [15582, 48200, 32943, 31206, 32529, 43571, 47005, 44933, 49856, 56704, 46797, 33939];
   localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
   formSalaryDefault.disabled = true;
   return false;
 });
 
-inputBtn.addEventListener('click', (e) => {
+inputBtn.addEventListener('click', (e) => { // вывести годовую зп
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   sumSalary = arrSalary.reduce((acc, number) => acc + number);
@@ -48,6 +60,28 @@ inputBtn.addEventListener('click', (e) => {
   quantityMoney.value = sumSalary;
   return false;
 });
+
+//
+vacationNum.value = JSON.parse(localStorage.getItem("Количество отпускных"));
+if(vacationNum.value == '0' || vacationNum.value == '') formVacation.disabled = true;
+
+quantityVacationItem.addEventListener('input', function() {
+  let quantityVacationElem = parseInt(this.value);
+  vacationNum.value = vacationCount - quantityVacationElem;
+});
+
+inputBtnVacation.addEventListener('click', (e) => { // вывести количество отпускных
+  e.preventDefault();
+  if(arrDate == '10.2023') {
+    localStorage.setItem("Количество отпускных", JSON.stringify('28'));
+    formVacation.disabled = false;
+  } 
+  
+  vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
+  vacationNum.value = vacationCount;
+  return false;
+});
+//
 
 function clickBtn(item, show, style) {
   item.addEventListener('click', (e) => {
@@ -58,25 +92,9 @@ function clickBtn(item, show, style) {
   });
 }
 
-let quantityVacationItem = document.querySelector('.quantity_vacations');
-let quantityVacation = document.querySelector('.quantity_vacations').value;
-quantityVacation = parseInt(quantityVacation);
-
-let vacationNum = document.querySelector('.num_vacations');
-
-quantityVacationItem.addEventListener('input', function() {
-  let quantityVacationElem = parseInt(this.value);
-  vacationNum.value = 28 - quantityVacationElem;
-})
-
-quantityVacation = quantityVacationItem.value;
-console.log(vacationNum.value);
-
-if(vacationNum == 0) formVacation.disabled = true;
-
 clickBtn(formVacation, itemHidden, 'show-hidden');
 
-formControl.addEventListener('click', (e) => {
+formControl.addEventListener('click', (e) => { // кнопка посчитать
   e.preventDefault();
   let betProg = 325;
 
@@ -94,6 +112,8 @@ formControl.addEventListener('click', (e) => {
   let salarySumAndTax;
   let deposit;
   let vacationSum;
+
+  quantityVacation = quantityVacationItem.value;
 
   if (quantityDays && timeProg && taxMoney) {
     let taxSumHalf = (taxMoney / 3) / 2;
@@ -170,7 +190,9 @@ formControl.addEventListener('click', (e) => {
       + "</b></p>";
     //
 
-    arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
+    if(quantityVacation !== '' || quantityVacation !== 0) {
+      localStorage.setItem("Количество отпускных", JSON.stringify(vacationNum.value));
+    }
 
     formSalary.addEventListener('click', (e) => {
       e.preventDefault();

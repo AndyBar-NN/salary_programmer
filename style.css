@@ -93,6 +93,13 @@ button[disabled=""]:hover {
   text-align: center;
 }
 
+button.input_btn-vacation {
+  margin-top: 0;
+  cursor: pointer;
+  background: rgb(36, 15, 156);
+  color: #fff;
+}
+
 .box-padding .salary_center,
 .box-padding input,
 .btn {
