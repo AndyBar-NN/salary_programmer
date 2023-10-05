@@ -12,6 +12,7 @@ body {
 
 h2 {
   color: rgb(0, 71, 171);
+  margin-top: 0;
 }
 video {
   position: fixed;
@@ -109,6 +110,7 @@ button.input_btn-vacation {
 
 .box-padding .salary_center {
   font-size: 36px;
+  margin: auto;
 }
 
 input.num_vacations {

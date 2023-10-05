@@ -62,10 +62,11 @@ inputBtn.addEventListener('click', (e) => { // вывести годовую з�
 });
 
 //
-vacationNum.value = JSON.parse(localStorage.getItem("Количество отпускных"));
+vacationNum.value = arrDate == '1.2024' ? '28' : JSON.parse(localStorage.getItem("Количество отпускных"));
 if(vacationNum.value == '0' || vacationNum.value == '') formVacation.disabled = true;
 
 quantityVacationItem.addEventListener('input', function() {
+  vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
   let quantityVacationElem = parseInt(this.value);
   vacationNum.value = vacationCount - quantityVacationElem;
 });
