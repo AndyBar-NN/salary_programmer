@@ -72,7 +72,7 @@ quantityVacationItem.addEventListener('input', function() {
 
 inputBtnVacation.addEventListener('click', (e) => { // вывести количество отпускных
   e.preventDefault();
-  if(arrDate == '10.2023') {
+  if(arrDate == '1.2024') {
     localStorage.setItem("Количество отпускных", JSON.stringify('28'));
     formVacation.disabled = false;
   } 
