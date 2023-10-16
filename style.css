@@ -28,6 +28,12 @@ video {
   position: relative;
 }
 
+button.monthly_salary {
+  position: absolute;
+  bottom: 20px;
+  width: 83%;
+}
+
 .quantity_money {
   position: relative;
   width: 94%;
@@ -153,6 +159,15 @@ div.box-padding.show {
 div.hidden.show-hidden {
   display: flex;
   flex-direction: column;
+}
+
+div.salaries {
+  display: none;
+  position: relative;
+}
+
+.salary_elem {
+  text-align: end;
 }
 
 .shift {

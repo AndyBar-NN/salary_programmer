@@ -35,6 +35,11 @@ quantityVacation = parseInt(quantityVacation);
 let quantityVacationItem = document.querySelector('.quantity_vacations');
 let vacationNum = document.querySelector('.num_vacations');
 
+let salaryElem = document.querySelectorAll('.salary_elem');
+let monthlySalary = document.querySelector('.monthly_salary'); 
+let salaries = document.querySelector('.salaries'); 
+
+let arrSalaryNums = [];
 let arrSalary = [];
 let sumSalary;
 let vacationCount;
@@ -44,10 +49,37 @@ let year = date.getFullYear();
 let month = date.getMonth();
 let arrDate = [month + 1, year].join('.');
 
+monthlySalary.addEventListener('click', (e) => {
+  arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
+
+  e.preventDefault();
+  salaryElem.forEach(function(n, i) {
+    n.innerHTML = arrSalary[i].join(': ') + ' ₽';
+  });
+
+  return false;
+});
+
 formSalaryDefault.addEventListener('click', (e) => {
   e.preventDefault();
-  arrSalary = [15582, 48200, 32943, 31206, 32529, 43571, 47005, 44933, 49856, 56704, 46797, 33939];
+  
+  arrSalary = [
+    ['Октябрь', 15582],
+    ['Ноябрь', 48200],
+    ['Декабрь', 32943], 
+    ['Январь', 31206], 
+    ['Февраль', 32529], 
+    ['Март', 43571], 
+    ['Апрель', 47005], 
+    ['Май', 44933], 
+    ['Июнь', 49856], 
+    ['Июль', 56704], 
+    ['Август', 46797], 
+    ['Сентябрь', 33939]
+  ];
+  
   localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
+  
   formSalaryDefault.disabled = true;
   return false;
 });
@@ -55,8 +87,12 @@ formSalaryDefault.addEventListener('click', (e) => {
 inputBtn.addEventListener('click', (e) => { // вывести годовую зп
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-  sumSalary = arrSalary.reduce((acc, number) => acc + number);
 
+  for(let i in arrSalary) {
+    arrSalaryNums[i] = arrSalary[i][1];
+  }
+
+  sumSalary = arrSalaryNums.reduce((acc, number) => acc + number);
   quantityMoney.value = sumSalary;
   return false;
 });
@@ -195,22 +231,28 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
       localStorage.setItem("Количество отпускных", JSON.stringify(vacationNum.value));
     }
 
+    function replacingElem(item) {
+      arrSalary[11][1] = item;
+      arrSalary[11].pop();
+      arrSalary[11].push(Math.round(item));
+    }
+
     formSalary.addEventListener('click', (e) => {
       e.preventDefault();
 
-      if(arrSalary[11] == Math.round(salaryVacationTaxSum) ||
-         arrSalary[11] == Math.round(salarySumAndTax)) {
+      if(arrSalary[11][1] == Math.round(salaryVacationTaxSum) ||
+         arrSalary[11][1] == Math.round(salarySumAndTax)) {
 
         alert("Вы уже добавили данные в таблицу");
         return false;
       } else {
 
-        arrSalary.shift();
+        arrSalary.push(arrSalary.shift());
 
         if(quantityMoney.value && quantityVacation) {
-          arrSalary.push(Math.round(salaryVacationTaxSum));
+          replacingElem(salaryVacationTaxSum);
         } else {
-          arrSalary.push(Math.round(salarySumAndTax));
+          replacingElem(salarySumAndTax);
         }
 
         localStorage.setItem("Годовая зарплата", JSON.stringify(arrSalary));
@@ -221,6 +263,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     });
 
     clickBtn(formDetailed, itemDetailed, 'show');
+    clickBtn(formDetailed, salaries, 'show');
 
   } else {
     alert("Введите корректные данные");
