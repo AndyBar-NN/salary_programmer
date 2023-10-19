@@ -12,27 +12,29 @@
   <video src="space.mp4" width="100%" height="auto" loop autoplay muted></video>
   <div class="box-col">
     <div class="salaries box-padding">
-      <h2>ЗП по месяцам</h2>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <p class="salary_elem"></p>
-      <button class="monthly_salary btn">Вывести</button>
+      <div class="salaries_block">
+        <h2>ЗП по месяцам</h2>
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <input class="salary_elem" type="text">
+        <span class="salary_elem-string"><input class="salary_elem" type="text"><button class="salary_elem-btn btn">ОК</button></span>
+        <button class="monthly_salary-send btn">Отправить</button>
+        <button class="monthly_salary btn">Вывести</button>
+      </div>
     </div>
 
     <form class="box-padding">
       <h2>Калькулятор для расчёта зарплаты</h2>
       <span>Ставка программиста: <b>325</b></span>
-      <p>Ставка контент-менеджера: <b class="bet_content-sum">0</b></p>
-      <span>Количество отпускных: <b><input class="num_vacations" type="number" min="0" value=""></b><button class="input_btn-vacation btn">Вывести</button></span>
+      <p class="num_vacations-title">Количество отпускных: <b><input class="num_vacations" type="number" min="0" value=""></b><button class="input_btn-vacation btn">Вывести</button></p>
 
       <div class="hidden">
         <div class="block-quantity_money">

@@ -28,12 +28,6 @@ video {
   position: relative;
 }
 
-button.monthly_salary {
-  position: absolute;
-  bottom: 20px;
-  width: 83%;
-}
-
 .quantity_money {
   position: relative;
   width: 94%;
@@ -45,7 +39,6 @@ button.monthly_salary {
 
 .btn {
   cursor: pointer;
-  position: relative;
   border-radius: 15px;
   background-image: linear-gradient(90deg, #1129fc 0% , #1f02c0 100%);
   background-origin: border-box;
@@ -95,6 +88,7 @@ button[disabled=""]:hover {
   text-align: center;
 }
 
+button.salary_elem-btn,
 button.input_btn-vacation {
   font-size: inherit;
   border-radius: 0;
@@ -122,6 +116,7 @@ button.input_btn-vacation {
   cursor: pointer;
 }
 
+.monthly_salary-send,
 .form_salary-default {
   background-image: linear-gradient(90deg, red 0% , #1f02c0 100%);
 }
@@ -131,8 +126,33 @@ button.input_btn-vacation {
   margin: auto;
 }
 
+.num_vacations-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+input.salary_elem,
 input.num_vacations {
   all: unset;
+}
+
+input.salary_elem {
+  margin: 10px 0;
+}
+
+.salary_elem-string {
+  position: relative;
+}
+.salary_elem-string button {
+  display: none;
+  position: absolute;
+}
+
+button.salary_elem-btn {
+  padding: 0 4px;
+  right: 0;
+  top: 0;
 }
 
 input[type=number].num_vacations::-webkit-outer-spin-button,
@@ -150,24 +170,22 @@ div.box-padding {
   display: none;
 }
 
+.salary_elem-btn.show,
 div.box-padding.show {
   display: block;
   opacity: 0;
   animation: ani 1.5s forwards;
 }
 
+.salaries_block,
 div.hidden.show-hidden {
   display: flex;
   flex-direction: column;
 }
 
 div.salaries {
-  display: none;
+  display: block;
   position: relative;
-}
-
-.salary_elem {
-  text-align: end;
 }
 
 .shift {
