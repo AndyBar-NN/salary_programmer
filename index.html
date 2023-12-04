@@ -14,18 +14,19 @@
     <div class="salaries box-padding">
       <div class="salaries_block">
         <h2>ЗП по месяцам</h2>
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <input class="salary_elem" type="text">
-        <span class="salary_elem-string"><input class="salary_elem" type="text"><button class="salary_elem-btn btn">ОК</button></span>
+        <input class="salary_elem" type="text" placeholder="Январь: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Февраль: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Март: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Апрель: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Май: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Июнь: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Июль: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Август: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Сентябрь: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Октябрь: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Ноябрь: 50000 ₽">
+        <input class="salary_elem" type="text" placeholder="Декабрь: 50000 ₽">
+
         <button class="monthly_salary-send btn">Отправить</button>
         <button class="monthly_salary btn">Вывести</button>
       </div>
@@ -60,10 +61,12 @@
       <div class="block_btn">
         <button class="form_vacation btn mini_btn">Посчитать отпуск</button>
         <button class="form_detailed btn mini_btn">Подробнее</button>
+        <button class='btn btn_copy mini_btn'>Скопировать подробное
+          <div class="hidden_copy_text">Текст скопирован</div>
+        </button>
       </div>
     </form>
-    <div class="detailed box-padding">
-    </div>
+    <div id="text" class="detailed box-padding"></div>
   </div>
 </body>
 </html>

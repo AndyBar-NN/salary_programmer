@@ -20,12 +20,12 @@ let formSalaryDefault = document.querySelector('.form_salary-default');
 let formDetailed = document.querySelector('.form_detailed');
 let inputBtnVacation = document.querySelector('.input_btn-vacation');
 let inputBtn = document.querySelector('.input_btn');
+let hiddenCopyText = document.querySelector('.hidden_copy_text');
 let quantityVacationItem = document.querySelector('.quantity_vacations');
 let vacationNum = document.querySelector('.num_vacations');
 let monthlySalary = document.querySelector('.monthly_salary');
 let monthlySalarySend = document.querySelector('.monthly_salary-send');
 let salaries = document.querySelector('.salaries');
-let salaryElemBtn = document.querySelector('.salary_elem-btn');
 
 let sumSalary;
 let vacationCount;
@@ -90,7 +90,6 @@ salaryElem.forEach((input) => {
   input.addEventListener('input', (e) => {
     e.preventDefault();
     monthlySalarySend.disabled = false;
-    salaryElemBtn.classList.add('show');
   });
 });
 
@@ -98,12 +97,6 @@ salaryElem.forEach((item) => arrSalary.push(item.value));
 let arrSalaryNestedArr = arrSalary.map((item) => {return item.replace(' ₽', '')});
 let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
 arrSalary = arrSalarySplitArr;
-
-salaryElemBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  salaryElemBtn.classList.remove('show');
-  location.reload();
-});
 
 monthlySalary.addEventListener('click', (e) => {  
   e.preventDefault();
@@ -258,6 +251,26 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     clickBtn(formDetailed, itemDetailed, 'show');
     clickBtn(formDetailed, salaries, 'show');
 
+    let btnCopy = document.querySelector('.btn_copy');
+    
+    function copyText() {
+      let elemBlock = document.getElementById("text");
+      let elemText = document.createElement("textarea");
+      elemText.value = elemBlock.innerText;
+      document.body.appendChild(elemText);
+      elemText.select();
+      document.execCommand("copy");
+      document.body.removeChild(elemText);
+      console.log("Текст скопирован!");
+    }
+
+    btnCopy.addEventListener('click', (e) => {
+      e.preventDefault();
+      copyText();
+      hiddenCopyText.style.display = 'block';
+      setTimeout(() => hiddenCopyText.style.display = "", 3900);
+    });
+    
   } else {
     return false;
   }

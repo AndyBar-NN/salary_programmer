@@ -34,7 +34,7 @@ video {
 }
 
 .mini_btn {
-  width: calc(98% / 2);
+  width: calc(98% / 3);
 }
 
 .btn {
@@ -69,6 +69,7 @@ button[disabled=""]:hover {
 
 .box-col {
   display: flex;
+  position: relative;
 }
 
 .box-padding {
@@ -94,6 +95,7 @@ button.input_btn-vacation {
   border-radius: 0;
   padding: 0 10px;
   margin-top: 0;
+  margin-left: 75px;
   cursor: pointer;
   background-image: linear-gradient(90deg, red 0% , #1f02c0 100%);
 }
@@ -114,6 +116,11 @@ button.input_btn-vacation {
   border-radius: 0;
   background-image: linear-gradient(90deg, red 0% , #1f02c0 100%);
   cursor: pointer;
+}
+
+.btn_copy {
+  position: relative;
+  z-index: 1;
 }
 
 .monthly_salary-send,
@@ -170,7 +177,6 @@ div.box-padding {
   display: none;
 }
 
-.salary_elem-btn.show,
 div.box-padding.show {
   display: block;
   opacity: 0;
@@ -190,6 +196,27 @@ div.salaries {
 
 .shift {
   animation: ani 1.5s forwards;
+}
+
+.detailed_block {
+  position: relative;
+}
+
+.hidden_copy_text {
+  display: none;
+  padding: 20px;
+  height: max-content;
+  position: absolute;
+  border: 2px solid #fff;
+  background: #000;
+  opacity: 0.9;
+  animation: ani-two 5s forwards;
+  z-index: 11;
+}
+
+@keyframes ani-two {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
 
 @keyframes ani {
