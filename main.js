@@ -18,7 +18,6 @@ let formVacation = document.querySelector('.form_vacation');
 let formSalary = document.querySelector('.form_salary');
 let formSalaryDefault = document.querySelector('.form_salary-default');
 let formDetailed = document.querySelector('.form_detailed');
-let inputBtnVacation = document.querySelector('.input_btn-vacation');
 let inputBtn = document.querySelector('.input_btn');
 let hiddenCopyText = document.querySelector('.hidden_copy_text');
 let quantityVacationItem = document.querySelector('.quantity_vacations');
@@ -54,8 +53,6 @@ let day = date.getDate();
 let year = date.getFullYear();
 let month = date.getMonth();
 let arrDate = [day, month + 1, year].join('.');
-let quantityVacation = document.querySelector('.quantity_vacations').value;
-quantityVacation = parseInt(quantityVacation);
 
 function clickBtn(item, show, style) {
   item.addEventListener('click', (e) => {
@@ -79,6 +76,11 @@ function replacingElem(item) {
 }
 
 function annualSalary(name) {localStorage.setItem("Годовая зарплата", JSON.stringify(name))}
+
+function inputVacation(count) {
+  count = JSON.parse(localStorage.getItem("Количество отпускных"));
+  vacationNum.value = count;
+}
 
 inputElem.forEach((input) => {
   input.addEventListener('input', (e) => {
@@ -140,24 +142,17 @@ inputBtn.addEventListener('click', (e) => { // вывести годовую з�
 });
 
 //
-if(arrDate == `1.1.${year}`) {
-  localStorage.setItem("Количество отпускных", JSON.stringify('28'));
-  formVacation.disabled = false;
-} 
-if(vacationNum.value == '0' || vacationNum.value == '') formVacation.disabled = true;
+if(arrDate == `1.1.${year}`) localStorage.setItem("Количество отпускных", JSON.stringify('28'));
 
-quantityVacationItem.addEventListener('input', () => {
+inputVacation(vacationCount);
+
+quantityVacationItem.oninput = function() {
   vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
   let quantityVacationElem = parseInt(this.value);
   vacationNum.value = vacationCount - quantityVacationElem;
-});
+};
 
-inputBtnVacation.addEventListener('click', (e) => { // вывести количество отпускных
-  e.preventDefault();
-  vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
-  vacationNum.value = vacationCount;
-  return false;
-});
+vacationNum.value == '0' || vacationNum.value == '' ? formVacation.disabled = true : formVacation.disabled = false;
 //
 
 clickBtn(formVacation, itemHidden, 'show-hidden');
