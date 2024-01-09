@@ -54,7 +54,6 @@ let day = date.getDate();
 let year = date.getFullYear();
 let month = date.getMonth();
 let arrDate = [day, month + 1, year].join('.');
-console.log(arrDate);
 let quantityVacation = document.querySelector('.quantity_vacations').value;
 quantityVacation = parseInt(quantityVacation);
 
