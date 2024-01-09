@@ -189,9 +189,19 @@ div.hidden.show-hidden {
   flex-direction: column;
 }
 
+.salaries_block-btn {
+  display: contents;
+}
+.salaries_block-btn .btn {
+  max-width: 200px;
+  width: 100%;
+}
+
 div.salaries {
   display: block;
   position: relative;
+  max-width: 200px;
+  width: 100%;
 }
 
 .shift {

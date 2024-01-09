@@ -25,6 +25,7 @@ let quantityVacationItem = document.querySelector('.quantity_vacations');
 let vacationNum = document.querySelector('.num_vacations');
 let monthlySalary = document.querySelector('.monthly_salary');
 let monthlySalarySend = document.querySelector('.monthly_salary-send');
+let monthlySalarySave = document.querySelector('.monthly_salary-save');
 let salaries = document.querySelector('.salaries');
 
 let sumSalary;
@@ -34,9 +35,6 @@ let arrSalaryNums = [];
 let arrSalary = [];
 
 let arrSalaryDefault = [
-  ['Октябрь', 15582],
-  ['Ноябрь', 48200],
-  ['Декабрь', 32943], 
   ['Январь', 31206], 
   ['Февраль', 32529], 
   ['Март', 43571], 
@@ -45,14 +43,18 @@ let arrSalaryDefault = [
   ['Июнь', 49856], 
   ['Июль', 56704], 
   ['Август', 46797], 
-  ['Сентябрь', 33939]
+  ['Сентябрь', 33939],
+  ['Октябрь', 47640],
+  ['Ноябрь', 42428],
+  ['Декабрь', 39476], 
 ];
 
 let date = new Date();
+let day = date.getDate();
 let year = date.getFullYear();
 let month = date.getMonth();
-let arrDate = [month + 1, year].join('.');
-
+let arrDate = [day, month + 1, year].join('.');
+console.log(arrDate);
 let quantityVacation = document.querySelector('.quantity_vacations').value;
 quantityVacation = parseInt(quantityVacation);
 
@@ -89,6 +91,7 @@ inputElem.forEach((input) => {
 salaryElem.forEach((input) => {
   input.addEventListener('input', (e) => {
     e.preventDefault();
+    monthlySalarySave.disabled = false;
     monthlySalarySend.disabled = false;
   });
 });
@@ -102,6 +105,13 @@ monthlySalary.addEventListener('click', (e) => {
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': ') + ' ₽');
+  return false;
+});
+
+monthlySalarySave.addEventListener('click', (e) => {  
+  e.preventDefault();
+  monthlySalarySave.disabled = true;
+  location.reload();
   return false;
 });
 
@@ -131,7 +141,10 @@ inputBtn.addEventListener('click', (e) => { // вывести годовую з�
 });
 
 //
-vacationNum.value = arrDate == `1.${year}` ? JSON.parse(localStorage.getItem("Количество отпускных")) : '';
+if(arrDate == `1.1.${year}`) {
+  localStorage.setItem("Количество отпускных", JSON.stringify('28'));
+  formVacation.disabled = false;
+} 
 if(vacationNum.value == '0' || vacationNum.value == '') formVacation.disabled = true;
 
 quantityVacationItem.addEventListener('input', () => {
@@ -142,11 +155,6 @@ quantityVacationItem.addEventListener('input', () => {
 
 inputBtnVacation.addEventListener('click', (e) => { // вывести количество отпускных
   e.preventDefault();
-  if(arrDate == `1.${year}`) {
-    localStorage.setItem("Количество отпускных", JSON.stringify('28'));
-    formVacation.disabled = false;
-  } 
-  
   vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
   vacationNum.value = vacationCount;
   return false;
