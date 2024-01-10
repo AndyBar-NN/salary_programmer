@@ -92,8 +92,6 @@ inputElem.forEach((input) => {
 salaryElem.forEach((input) => {
   input.addEventListener('input', (e) => {
     e.preventDefault();
-    monthlySalarySave.disabled = false;
-    monthlySalarySend.disabled = false;
   });
 });
 
