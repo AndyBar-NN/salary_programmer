@@ -52,7 +52,7 @@ let date = new Date();
 let day = date.getDate();
 let year = date.getFullYear();
 let month = date.getMonth();
-let arrDate = [day, month + 1, year].join('.');
+let arrDate = [month + 1, year].join('.');
 
 function clickBtn(item, show, style) {
   item.addEventListener('click', (e) => {
@@ -140,7 +140,7 @@ inputBtn.addEventListener('click', (e) => { // вывести годовую з�
 });
 
 //
-if(arrDate == `1.1.${year}`) localStorage.setItem("Количество отпускных", JSON.stringify('28'));
+if(arrDate == `1.${year}`) localStorage.setItem("Количество отпускных", JSON.stringify('28'));
 
 inputVacation(vacationCount);
 
