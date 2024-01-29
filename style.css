@@ -107,6 +107,7 @@ button.input_btn-vacation {
   font-size: 18px;
 }
 
+.btn_vacations,
 .input_btn {
   position: absolute;
   padding: 0;
@@ -134,6 +135,7 @@ button.input_btn-vacation {
 }
 
 .num_vacations-title {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 0;
@@ -142,6 +144,10 @@ button.input_btn-vacation {
 input.salary_elem,
 input.num_vacations {
   all: unset;
+}
+
+.btn_vacations {
+  top: -33px;
 }
 
 input.salary_elem {

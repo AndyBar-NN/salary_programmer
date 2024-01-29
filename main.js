@@ -26,6 +26,7 @@ let monthlySalary = document.querySelector('.monthly_salary');
 let monthlySalarySend = document.querySelector('.monthly_salary-send');
 let monthlySalarySave = document.querySelector('.monthly_salary-save');
 let salaries = document.querySelector('.salaries');
+let btnVacations = document.querySelector('.btn_vacations');
 
 let sumSalary;
 let vacationCount;
@@ -59,7 +60,6 @@ function clickBtn(item, show, style) {
     e.preventDefault();
     show.classList.toggle(style);
     form.classList.toggle('shift');
-    return false;
   });
 }
 
@@ -92,6 +92,7 @@ inputElem.forEach((input) => {
 salaryElem.forEach((input) => {
   input.addEventListener('input', (e) => {
     e.preventDefault();
+    monthlySalarySave.disabled = false;
   });
 });
 
@@ -104,28 +105,24 @@ monthlySalary.addEventListener('click', (e) => {
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': ') + ' ₽');
-  return false;
 });
 
 monthlySalarySave.addEventListener('click', (e) => {  
   e.preventDefault();
   monthlySalarySave.disabled = true;
   location.reload();
-  return false;
 });
 
 monthlySalarySend.addEventListener('click', (e) => {  
   e.preventDefault();
   arrSalary ? annualSalary(arrSalary) : '';
   monthlySalarySend.disabled = true;
-  return false;
 });
  
 formSalaryDefault.addEventListener('click', (e) => {
   e.preventDefault();
   arrSalary ? annualSalary(arrSalaryDefault) : '';
   formSalaryDefault.disabled = true;
-  return false;
 });
 
 inputBtn.addEventListener('click', (e) => { // вывести годовую зп
@@ -136,21 +133,36 @@ inputBtn.addEventListener('click', (e) => { // вывести годовую з�
 
   sumSalary = arrSalaryNums.reduce((acc, number) => acc + number);
   quantityMoney.value = sumSalary;
-  return false;
 });
 
 //
-if(arrDate == `1.1.${year}`) localStorage.setItem("Количество отпускных", JSON.stringify('28'));
+localStorage.getItem("Сегодняшний год") == year ? btnVacations.disabled = true : btnVacations.disabled = false;
+
+btnVacations.addEventListener('click', (e) => {
+  e.preventDefault();
+  if(vacationNum.value > 0) {
+    localStorage.setItem("Количество отпускных", vacationNum.value);
+    localStorage.setItem("Сегодняшний год", year);
+    location.reload();
+  }
+});
 
 inputVacation(vacationCount);
 
 quantityVacationItem.oninput = function() {
   vacationCount = JSON.parse(localStorage.getItem("Количество отпускных"));
   let quantityVacationElem = parseInt(this.value);
+  quantityVacationItem.max = vacationCount;
   vacationNum.value = vacationCount - quantityVacationElem;
 };
 
-vacationNum.value == '0' || vacationNum.value == '' ? formVacation.disabled = true : formVacation.disabled = false;
+if(vacationNum.value == 0 || vacationNum.value == '') {
+  formVacation.disabled = true;
+  vacationNum.readOnly = false;
+} else {
+  formVacation.disabled = false;
+  vacationNum.readOnly = true;
+}
 //
 
 clickBtn(formVacation, itemHidden, 'show-hidden');
@@ -174,7 +186,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
   let deposit;
   let vacationSum;
 
-  quantityVacation = quantityVacationItem.value;
+  let quantityVacation = quantityVacationItem.value;
 
   if (quantityDays && timeProg && taxMoney) {
     let taxSumHalf = (taxMoney / 3) / 2;
@@ -229,7 +241,6 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
 
     itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? itemDetailedTextTax + ititemDetailedTextVacation :
     itemDetailedTextTax + itemDetailedTextSalary + salarySum + " + " + taxSumHalf + " = " + salarySumAndTax + "</b></p>";
-
     if(quantityVacation !== '' || quantityVacation !== 0) localStorage.setItem("Количество отпускных", JSON.stringify(vacationNum.value));
 
     formSalary.addEventListener('click', (e) => {
