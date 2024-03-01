@@ -22,7 +22,6 @@ let inputBtn = document.querySelector('.input_btn');
 let hiddenCopyText = document.querySelector('.hidden_copy_text');
 let quantityVacationItem = document.querySelector('.quantity_vacations');
 let vacationNum = document.querySelector('.num_vacations');
-let monthlySalary = document.querySelector('.monthly_salary');
 let monthlySalarySend = document.querySelector('.monthly_salary-send');
 let monthlySalarySave = document.querySelector('.monthly_salary-save');
 let salaries = document.querySelector('.salaries');
@@ -34,9 +33,13 @@ let vacationCount;
 let arrSalaryNums = [];
 let arrSalary = [];
 
+let date = new Date();
+let day = date.getDate();
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
+let arrDate = [day, month, year].join('.');
+
 let arrSalaryDefault = [
-  ['Январь', 31206], 
-  ['Февраль', 32529], 
   ['Март', 43571], 
   ['Апрель', 47005], 
   ['Май', 44933], 
@@ -47,13 +50,9 @@ let arrSalaryDefault = [
   ['Октябрь', 47640],
   ['Ноябрь', 42428],
   ['Декабрь', 39476], 
+  ['Январь', 36598], 
+  ['Февраль', 49748], 
 ];
-
-let date = new Date();
-let day = date.getDate();
-let year = date.getFullYear();
-let month = date.getMonth();
-let arrDate = [day, month + 1, year].join('.');
 
 function clickBtn(item, show, style) {
   item.addEventListener('click', (e) => {
@@ -101,15 +100,19 @@ let arrSalaryNestedArr = arrSalary.map((item) => {return item.replace(' ₽', ''
 let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
 arrSalary = arrSalarySplitArr;
 
-monthlySalary.addEventListener('click', (e) => {  
-  e.preventDefault();
+arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
+if (arrSalary !== null) {
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
   salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': ') + ' ₽');
-});
+} else {
+  annualSalary(arrSalaryDefault);
+  location.reload();
+}
 
 monthlySalarySave.addEventListener('click', (e) => {  
   e.preventDefault();
   monthlySalarySave.disabled = true;
+  monthlySalarySend.disabled = false;
   location.reload();
 });
 
