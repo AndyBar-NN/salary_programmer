@@ -125,12 +125,6 @@ monthlySalarySend.addEventListener('click', (e) => {
   monthlySalarySend.disabled = true;
 });
 
-formSalaryDefault.addEventListener('click', (e) => {
-  e.preventDefault();
-  arrSalary ? annualSalary(arrSalaryActual) : '';
-  formSalaryDefault.disabled = true;
-});
-
 inputBtn.addEventListener('click', (e) => { // вывести годовую зп
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
@@ -225,7 +219,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     let itemDetailedTextTax = `
       <span>Налоги:</span><br>
       <b>${taxMoney}</b> - сумма налогов за квартал<br>
-      <b>${taxMoney} / 3) / 2 = ${taxSumHalf}</b> - половина от налогов за месяц<br><br>
+      <b>(${taxMoney} / 3) / 2 = ${taxSumHalf}</b> - половина от налогов за месяц<br><br>
     `;
 
     let itemDetailedTextSalary = `

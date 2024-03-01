@@ -34,7 +34,7 @@ video {
 }
 
 .mini_btn {
-  width: calc(98% / 3);
+  width: calc((100% / 2) - 10px);
 }
 
 .btn {
@@ -73,13 +73,15 @@ button[disabled=""]:hover {
 }
 
 .box-padding {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid #fff;
-  padding: 20px;
-  z-index: 1;
-  background: #000;
-  opacity: 0.9;
+	display: flex;
+	flex-direction: column;
+	border: 2px solid #fff;
+	padding: 20px;
+	z-index: 1;
+	background: #000;
+	opacity: 0.9;
+	width: 100%;
+	max-width: 600px;
 }
 
 .box-padding input,
