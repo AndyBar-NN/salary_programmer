@@ -39,20 +39,24 @@ let year = date.getFullYear();
 let month = date.getMonth() + 1;
 let arrDate = [day, month, year].join('.');
 
+let numMonth = month - 1;
+
 let arrSalaryDefault = [
-  ['Март', 43571], 
-  ['Апрель', 47005], 
-  ['Май', 44933], 
-  ['Июнь', 49856], 
-  ['Июль', 56704], 
-  ['Август', 46797], 
-  ['Сентябрь', 33939],
-  ['Октябрь', 47640],
-  ['Ноябрь', 42428],
-  ['Декабрь', 39476], 
-  ['Январь', 36598], 
-  ['Февраль', 49748], 
+  ['Январь', 50000],
+  ['Февраль', 50000],
+  ['Март', 50000],
+  ['Апрель', 50000],
+  ['Май', 50000],
+  ['Июнь', 50000],
+  ['Июль', 50000],
+  ['Август', 50000],
+  ['Сентябрь', 50000],
+  ['Октябрь', 50000],
+  ['Ноябрь', 50000],
+  ['Декабрь', 50000],
 ];
+
+let arrSalaryActual = [...arrSalaryDefault.slice(numMonth), ...arrSalaryDefault.slice(0, numMonth)]
 
 function clickBtn(item, show, style) {
   item.addEventListener('click', (e) => {
@@ -96,35 +100,34 @@ salaryElem.forEach((input) => {
 });
 
 salaryElem.forEach((item) => arrSalary.push(item.value));
-let arrSalaryNestedArr = arrSalary.map((item) => {return item.replace(' ₽', '')});
+let arrSalaryNestedArr = arrSalary.map((item) => {return item});
 let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
 arrSalary = arrSalarySplitArr;
 
 arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
 if (arrSalary !== null) {
-  arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-  salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': ') + ' ₽');
+  salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': '));
 } else {
-  annualSalary(arrSalaryDefault);
+  annualSalary(arrSalaryActual);
   location.reload();
 }
 
-monthlySalarySave.addEventListener('click', (e) => {  
+monthlySalarySave.addEventListener('click', (e) => {
   e.preventDefault();
   monthlySalarySave.disabled = true;
   monthlySalarySend.disabled = false;
   location.reload();
 });
 
-monthlySalarySend.addEventListener('click', (e) => {  
+monthlySalarySend.addEventListener('click', (e) => {
   e.preventDefault();
   arrSalary ? annualSalary(arrSalary) : '';
   monthlySalarySend.disabled = true;
 });
- 
+
 formSalaryDefault.addEventListener('click', (e) => {
   e.preventDefault();
-  arrSalary ? annualSalary(arrSalaryDefault) : '';
+  arrSalary ? annualSalary(arrSalaryActual) : '';
   formSalaryDefault.disabled = true;
 });
 
@@ -209,7 +212,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     salarySum = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent);
 
     depositSum.innerHTML = Math.round(deposit);
-    
+
     let numDay = quantityVacation % 10;
     let daysDeclination;
 
@@ -256,7 +259,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
       } else {
         arrSalary.push(arrSalary.shift());
         quantityMoney.value && quantityVacation ? replacingElem(salaryVacationTaxSum) : replacingElem(salarySumAndTax);
-        arrSalary ? annualSalary(arrSalary) : annualSalary(arrSalaryDefault);
+        arrSalary ? annualSalary(arrSalary) : annualSalary(arrSalaryActual);
         formSalary.disabled = true;
         return false;
       }
@@ -266,7 +269,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     clickBtn(formDetailed, salaries, 'show');
 
     let btnCopy = document.querySelector('.btn_copy');
-    
+
     function copyText() {
       let elemBlock = document.getElementById("text");
       let elemText = document.createElement("textarea");
@@ -284,7 +287,7 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
       hiddenCopyText.style.display = 'block';
       setTimeout(() => hiddenCopyText.style.display = "", 3900);
     });
-    
+
   } else {
     return false;
   }
