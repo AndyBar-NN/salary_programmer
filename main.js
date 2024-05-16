@@ -104,13 +104,11 @@ let arrSalaryNestedArr = arrSalary.map((item) => {return item});
 let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
 arrSalary = arrSalarySplitArr;
 
-arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-if (arrSalary !== null) {
-  salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': '));
-} else {
+if (JSON.parse(localStorage.getItem("Годовая зарплата")) == null) {
   annualSalary(arrSalaryActual);
-  location.reload();
-}
+  arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
+  salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': '));
+} 
 
 monthlySalarySave.addEventListener('click', (e) => {
   e.preventDefault();
@@ -140,10 +138,12 @@ localStorage.getItem("Сегодняшний год") == year ? btnVacations.dis
 
 btnVacations.addEventListener('click', (e) => {
   e.preventDefault();
-  if(vacationNum.value > 0) {
+  if(vacationNum.value > 0 && vacationNum.value <= 28) {
     localStorage.setItem("Количество отпускных", vacationNum.value);
     localStorage.setItem("Сегодняшний год", year);
     location.reload();
+  } else {
+    alert('Введите число в диапозоне от 1 до 28 включительно!');
   }
 });
 
