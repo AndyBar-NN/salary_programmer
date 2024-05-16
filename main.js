@@ -32,6 +32,7 @@ let vacationCount;
 
 let arrSalaryNums = [];
 let arrSalary = [];
+let arrSalaryElems = [];
 
 let date = new Date();
 let day = date.getDate();
@@ -92,10 +93,10 @@ inputElem.forEach((input) => {
   });
 });
 
+arrSalaryElems = JSON.parse(localStorage.getItem("Годовая зарплата"));
 salaryElem.forEach((input) => {
-  if (input.value == '') {
-    arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-    salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': '));
+  if (input.value == '' && arrSalaryElems !== null) {
+    salaryElem.forEach((item, num) => item.value = arrSalaryElems[num].join(': '));
   } else {
     input.addEventListener('input', (e) => {
       e.preventDefault();
@@ -104,10 +105,10 @@ salaryElem.forEach((input) => {
   }
 });
 
-// salaryElem.forEach((item) => arrSalary.push(item.value));
-// let arrSalaryNestedArr = arrSalary.map((item) => {return item});
-// let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
-// arrSalary = arrSalarySplitArr;
+salaryElem.forEach((item) => arrSalary.push(item.value));
+let arrSalaryNestedArr = arrSalary.map((item) => {return item});
+let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
+arrSalary = arrSalarySplitArr;
 
 if (JSON.parse(localStorage.getItem("Годовая зарплата")) == null) {
   annualSalary(arrSalaryActual);
