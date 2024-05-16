@@ -93,16 +93,21 @@ inputElem.forEach((input) => {
 });
 
 salaryElem.forEach((input) => {
-  input.addEventListener('input', (e) => {
-    e.preventDefault();
-    monthlySalarySave.disabled = false;
-  });
+  if (input.value == '') {
+    arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
+    salaryElem.forEach((item, num) => item.value = arrSalary[num].join(': '));
+  } else {
+    input.addEventListener('input', (e) => {
+      e.preventDefault();
+      monthlySalarySave.disabled = false;
+    });
+  }
 });
 
-salaryElem.forEach((item) => arrSalary.push(item.value));
-let arrSalaryNestedArr = arrSalary.map((item) => {return item});
-let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
-arrSalary = arrSalarySplitArr;
+// salaryElem.forEach((item) => arrSalary.push(item.value));
+// let arrSalaryNestedArr = arrSalary.map((item) => {return item});
+// let arrSalarySplitArr = arrSalaryNestedArr.map((elem) => {return elem.split(': ').map(String)});
+// arrSalary = arrSalarySplitArr;
 
 if (JSON.parse(localStorage.getItem("Годовая зарплата")) == null) {
   annualSalary(arrSalaryActual);
