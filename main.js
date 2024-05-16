@@ -126,10 +126,10 @@ monthlySalarySend.addEventListener('click', (e) => {
 inputBtn.addEventListener('click', (e) => { // вывести годовую зп
   e.preventDefault();
   arrSalary = JSON.parse(localStorage.getItem("Годовая зарплата"));
-
-  for(let i in arrSalary) {arrSalaryNums[i] = arrSalary[i][1]}
-
+  for(let i in arrSalary) {arrSalaryNums[i] = Number(arrSalary[i][1])}
+  
   sumSalary = arrSalaryNums.reduce((acc, number) => acc + number);
+  console.log(sumSalary);
   quantityMoney.value = sumSalary;
 });
 
