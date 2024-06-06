@@ -132,8 +132,11 @@ button.input_btn-vacation {
 }
 
 .box-padding .salary_center {
-  font-size: 36px;
   margin: auto;
+  }
+
+.box-padding .salary_whole {
+  font-size: 36px;
 }
 
 .num_vacations-title {

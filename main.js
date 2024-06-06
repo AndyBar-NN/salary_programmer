@@ -3,6 +3,7 @@ let tax = document.querySelectorAll('.tax');
 let taxSum = document.querySelectorAll('.tax_sum');
 let vacation = document.querySelectorAll('.vacation');
 let salaryWhole = document.querySelectorAll('.salary_whole');
+let salaryWholeText = document.querySelectorAll('.salary_whole_text');
 let salaryProg = document.querySelectorAll('.salary_prog');
 let salaryContent = document.querySelectorAll('.salary_content');
 let salaryElem = document.querySelectorAll('.salary_elem');
@@ -220,7 +221,55 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     numDay > 1 && numDay < 5 ? daysDeclination = "дня" :
     quantityVacation == 1 ? daysDeclination = "день" : "";
 
-    quantityMoney.value && quantityVacation ? foreachData(salaryWhole, Math.round(salaryVacationTaxSum)) : foreachData(salaryWhole, Math.round(salarySumAndTax));
+    function numLetters(k, d) {  // целое число прописью, это основа
+      var i = '', e = [
+        ['','тысяч'],
+        ['а','и',''],
+        ['','а']
+      ];
+      if (k == '' || k == '0') return ' ноль'; // 0
+      k = k.split(/(?=(?:\d{3})+$)/);  // разбить число в массив с трёхзначными числами
+      if (k[0].length == 1) k[0] = '00'+k[0];
+      if (k[0].length == 2) k[0] = '0'+k[0];
+      for (var j = (k.length - 1); j >= 0; j--) {  // соединить трёхзначные числа в одно число, добавив названия разрядов с окончаниями
+        if (k[j] != '000') {
+          i = (((d && j == (k.length - 1)) || j == (k.length - 2)) && (k[j][2] == '1' || k[j][2] == '2') ? t(k[j],1) : t(k[j])) + declOfNum(k[j], e[0][k.length - 1 - j], (j == (k.length - 2) ? e[1] : e[2])) + i;
+        }
+      }
+      function t(k, d) {  // преобразовать трёхзначные числа
+        var e = [
+          ['',' один',' два',' три',' четыре',' пять',' шесть',' семь',' восемь',' девять'],
+          [' десять',' одиннадцать',' двенадцать',' тринадцать',' четырнадцать',' пятнадцать',' шестнадцать',' семнадцать',' восемнадцать',' девятнадцать'],
+          ['','',' двадцать',' тридцать',' сорок',' пятьдесят',' шестьдесят',' семьдесят',' восемьдесят',' девяносто'],
+          ['',' сто',' двести',' триста',' четыреста',' пятьсот',' шестьсот',' семьсот',' восемьсот',' девятьсот'],
+          ['',' одна',' две']
+        ];
+        return e[3][k[0]] + (k[1] == 1 ? e[1][k[2]] : e[2][k[1]] + (d ? e[4][k[2]] : e[0][k[2]]));
+      }
+      return i;
+    }
+
+    function declOfNum(n, t, o) {  // склонение именительных рядом с числительным: число (typeof = string), корень (не пустой), окончание
+      var k = [2,0,1,1,1,2,2,2,2,2];
+      return (t == '' ? '' : ' ' + t + (n[n.length-2] == "1"?o[2]:o[k[n[n.length-1]]]));
+    }
+
+    function razUp(e) {  // сделать первую букву заглавной и убрать лишний первый пробел
+      return e[1].toUpperCase() + e.substring(2);
+    }
+
+    function sumLetters(a) {
+      a = Number(a).toFixed(2).split('.');  // округлить до сотых и сделать массив двух чисел: до точки и после неё
+      return razUp(numLetters(a[0]) + declOfNum(a[0], 'рубл', ['ь','я','ей']) + ' ' + a[1] + declOfNum(a[1], 'копе', ['йка','йки','ек']));
+    }
+
+    if(quantityMoney.value && quantityVacation) {
+      foreachData(salaryWhole, Math.round(salaryVacationTaxSum));
+      foreachData(salaryWholeText, sumLetters(Math.round(salaryVacationTaxSum)));
+    } else {
+      foreachData(salaryWhole, Math.round(salarySumAndTax));
+      foreachData(salaryWholeText, sumLetters(Math.round(salarySumAndTax)));
+    } 
 
     let itemDetailedTextTax = `
       <span>Налоги:</span><br>
