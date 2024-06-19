@@ -26,11 +26,12 @@ video {
 
 .block-quantity_money {
   position: relative;
+  display: flex;
 }
 
 .quantity_money {
   position: relative;
-  width: 96%;
+  width: 100%;
 }
 
 .mini_btn {

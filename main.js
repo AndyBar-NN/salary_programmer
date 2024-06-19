@@ -178,16 +178,12 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
   e.preventDefault();
   let betProg = 325;
 
-  let quantityDays = document.querySelector('.quantity_days').value;
-  quantityDays = parseInt(quantityDays);
-
-  let timeProg = document.querySelector('.time_prog').value;
+  let timeProg = document.querySelector('.time_prog').value; // время программиста
   timeProg = parseInt(timeProg);
 
-  let taxMoney = document.querySelector('.tax_money').value;
+  let taxMoney = document.querySelector('.tax_money').value; // сумма налогов
   taxMoney = parseInt(taxMoney);
 
-  let salarySum;
   let salaryVacationTaxSum;
   let salarySumAndTax;
   let deposit;
@@ -195,22 +191,20 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
 
   let quantityVacation = quantityVacationItem.value;
 
-  if (quantityDays && timeProg && taxMoney) {
-    let taxSumHalf = (taxMoney / 3) / 2;
-    let betContent = 30000 / (quantityDays * 8);
-    let salaryProgSum = betProg * timeProg;
-    let salaryContentSum = (quantityDays * 8 - timeProg) * betContent;
+  if (timeProg && taxMoney) {
+    let taxSumHalf = (taxMoney / 3) / 2; // половина от налогов за 1 месяц
+    let salaryProgSum = betProg * timeProg; // зп программиста
 
     if(quantityMoney.value && quantityVacation) {
       vacationSum = ((quantityMoney.value / 12) / 20.5) * quantityVacation;
-      salaryVacationTaxSum = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + vacationSum + taxSumHalf;
+      salaryVacationTaxSum = (betProg * timeProg) + vacationSum + taxSumHalf; // зп + отпускные + половина налога за месяц
     } else {
-      salarySumAndTax = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent) + taxSumHalf;
+      salarySumAndTax = (betProg * timeProg) + taxSumHalf; // зп + половина налога за месяц
     }
 
     quantityMoney.value && quantityVacation ? deposit = salaryVacationTaxSum / 10 : deposit = salarySumAndTax / 10;
 
-    salarySum = (betProg * timeProg) + ((quantityDays * 8 - timeProg) * betContent);
+    let salarySum = betProg * timeProg;
 
     depositSum.innerHTML = Math.round(deposit);
 
@@ -272,30 +266,26 @@ formControl.addEventListener('click', (e) => { // кнопка посчитат�
     } 
 
     let itemDetailedTextTax = `
-      <span>Налоги:</span><br>
+      <b>Налоги:</b><br>
       <b>${taxMoney}</b> - сумма налогов за квартал<br>
       <b>(${taxMoney} / 3) / 2 = ${taxSumHalf}</b> - половина от налогов за месяц<br><br>
     `;
 
     let itemDetailedTextSalary = `
-      ЗП (с контентными работами):<br>
-      <b>${quantityDays}</b> - отработанные дни<br><br>
-      <b>30000 / (${quantityDays} * 8) = ${betContent}</b> - ставка контента за 1 час<br>
-      <b>(${quantityDays} * 8 - ${timeProg}) * ${betContent} = ${salaryContentSum}</b> - зп за контентые работы
-      <p><b>${timeProg} * 325 = ${salaryProgSum}</b> - зп за программерские работы </p>
-      <p><b>${salaryProgSum} + ${salaryContentSum} = ${salarySum}</b></p>
-      <p><b>
+      <b>ЗП:</b><br>
+      <b>${timeProg} * 325 = ${salaryProgSum}</b> - зп за программерские работы <br>
+      <b>
     `;
 
     let ititemDetailedTextVacation = `
-      Отпускные:<br>
-      <b>((${quantityMoney.value} / 12) / 20,5) * ${quantityVacation} = ${vacationSum}</b> - отпускные за  ${quantityVacation + daysDeclination}<br><br>
+      <b>Отпускные:</b><br>
+      <b>((${quantityMoney.value} / 12) / 20,5) * ${quantityVacation} = ${vacationSum}</b> - отпускные за ${quantityVacation + ' ' + daysDeclination}<br><br>
       ${itemDetailedTextSalary}
       ${salarySum} + ${vacationSum} + ${taxSumHalf} = ${salaryVacationTaxSum}</b></p>
     `;
 
     itemDetailed.innerHTML = quantityMoney.value && quantityVacation ? itemDetailedTextTax + ititemDetailedTextVacation :
-    itemDetailedTextTax + itemDetailedTextSalary + salarySum + " + " + taxSumHalf + " = " + salarySumAndTax + "</b></p>";
+    itemDetailedTextTax + itemDetailedTextSalary + salarySum + " + " + taxSumHalf + " = " + salarySumAndTax + "</br></p>";
     if(quantityVacation !== '' || quantityVacation !== 0) localStorage.setItem("Количество отпускных", JSON.stringify(vacationNum.value));
 
     formSalary.addEventListener('click', (e) => {
